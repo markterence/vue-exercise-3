@@ -3,10 +3,13 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 import App from "./App.vue";
+import BaseFilter from './components/_base-filter.vue';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import modules from "./store";
 import routes from "./router";
+
+Vue.component('BaseFilter', BaseFilter)
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);

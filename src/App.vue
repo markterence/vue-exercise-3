@@ -1,10 +1,36 @@
 <template>
-  <div id="app" class="container-fluid w-75">
+  <div id="app" class="container-fluid w-75 py-5">
     <ClassStyleBinding ref="termFeed"/>
    
     <ElementComponentAccess @onSendClicked="broadcastMessage" @onPurgeClicked="clearMessages"/>
 
     <FilterComponent/>
+
+    <h3>Resources</h3>
+    <ul class="list-group">
+      
+      <li>
+        <h5>Scoped Slots</h5>
+        <ul class="list-group">
+          <li><a href="https://adamwathan.me/the-trick-to-understanding-scoped-slots-in-vuejs/">The Trick to Understanding Scoped Slots in Vue.js</a></li>
+          <li><a href="https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots">Scoped Slots</a></li> 
+        </ul>
+      </li>
+
+      <li>
+        <h5>Events</h5>
+        <ul class="list-group">
+          <li><a href="https://vuejs.org/v2/guide/components-custom-events.html">Custom Events</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <h5><span class="monospace">$refs</span></h5>
+        <ul class="list-group">
+          <li><a href="https://vuejs.org/v2/guide/components-edge-cases.html#Element-amp-Component-Access">Element &amp; Component Access</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </template>
 
