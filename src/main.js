@@ -4,11 +4,11 @@ import VueRouter from "vue-router";
 
 import App from "./App.vue";
 
+import 'bootstrap/dist/css/bootstrap.css'
 import modules from "./store";
 import routes from "./router";
 
 Vue.config.productionTip = false;
-
 Vue.use(Vuex);
 const store = new Vuex.Store({
   namespaced: true,

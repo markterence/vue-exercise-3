@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app" class="container-fluid w-75">
     <ClassStyleBinding/>
     <FilterComponent/>
   </div>
@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style>
-@import "bootstrap/scss/bootstrap.scss";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

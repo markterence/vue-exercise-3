@@ -4,10 +4,14 @@
         termClass]"
     v-bind:style="[termStyle]"
   >
-    <div class="shadow term-header-container" style="max-height:30px">
-      <div class="p-2 d-flex justify-content-between align-items-center" @click.self="glowTerm">
-        <a href="#" style="color: orange; user-select:none; cursor: default;">{{title}}</a>
-        <div>
+    <div class="shadow term-header-container" style="">
+      <div class="px-2 d-flex justify-content-between align-items-center" 
+      style="max-height:42px; height:42px"
+        @click.self="glowTerm"
+      >
+        <div class="d-flex"><a href="#" style="color: orange; user-select:none; cursor: default;">{{title}}</a>
+        </div>
+        <div class="d-flex">
           <button
             class="btn p-2 bg-warning rounded-circle ml-1"
             style="width:4px; height:4px;"
@@ -33,6 +37,7 @@
 <script>
 const MAX_TERM_HEIGHT = 300;
 const MIN_TERM_HEIGHT = 160;
+const MAX_VISIBLE_HEIGHT = 42;
 
 export default {
   props: {
@@ -48,6 +53,13 @@ export default {
       required: false,
       default: function() {
         return [""];
+      }
+    },
+    collapsed: {
+      type: Boolean,
+      required: false,
+      default: function() {
+        return false
       }
     }
   },
@@ -70,12 +82,17 @@ export default {
       };
     }
   },
+  mounted(){
+    if(!this.$props.collapsed) {
+      this.hideTerm()
+    }
+  },
   methods: {
     setTermContent(content) {
       this.$props.termMessages.push(content);
     },
     hideTerm() {
-      this.termHeight = this.termHeight <= 30 ? MAX_TERM_HEIGHT : 30;
+      this.termHeight = this.termHeight <= MAX_VISIBLE_HEIGHT ? MAX_TERM_HEIGHT : MAX_VISIBLE_HEIGHT;
     },
     glowTerm() {
       this.isActive = !this.isActive;
