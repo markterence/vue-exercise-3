@@ -1,18 +1,23 @@
 <template>
   <div id="app" class="container-fluid w-75">
     <ClassStyleBinding/>
-    <FilterComponent/>
+   
+    <ElementComponentAccess/>
+
+     <FilterComponent/>
   </div>
 </template>
 
 <script>
 import ClassStyleBinding from "./components/ClassStyleBinding";
 import FilterComponent from "./components/FilterComponent";
+import ElementComponentAccess from "./components/ElementComponentAccess";
 export default {
   name: "App",
   components: {
     ClassStyleBinding,
-    FilterComponent
+    FilterComponent,
+    ElementComponentAccess
   }
 };
 </script>
