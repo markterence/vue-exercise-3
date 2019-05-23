@@ -9,9 +9,15 @@
             <input class="form-check-input" type="checkbox" id="chkStar" v-model="ratingFilter">
             <label class="form-check-label" for="chkStar" style="user-select:none">Difficulty</label>
           </div>
-          <select class="form-control" v-model="difficulty" v-show="ratingFilter">
-            <option v-for="(rating,i) in ratingOps" :key="i" :value="rating.value">{{rating.text}}</option>
-          </select>
+          <div v-show="ratingFilter" class="mt-2 ">
+            <div class="d-flex align-items-center">
+              <button class="btn btn-warning mr-1" @click="selectRandomLevel">Random using <code>v-model</code></button>
+              <select class="form-control" v-model="difficulty" ref="dropdownDifficulty">
+                <option v-for="(rating,i) in ratingOps" :key="i" :value="rating.value">{{rating.text}}</option>
+              </select>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -90,6 +96,12 @@ export default {
   },
 
   methods: {
+    randomizeLevel(){
+      return Math.floor(Math.random() * Math.floor(this.ratingOps.length));
+    },
+    selectRandomLevel(rndType) { 
+      this.difficulty = this.randomizeLevel() 
+    },
     filterTopics(topics){
       const reg = generateSearchRegex(this.search)
       if(reg) {

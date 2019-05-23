@@ -9,7 +9,7 @@
       style="max-height:42px; height:42px"
         @click.self="glowTerm"
       >
-        <div class="d-flex"><a href="#" style="color: orange; user-select:none; cursor: default;">{{title}}</a>
+        <div class="d-flex"><span style="color: orange; user-select:none; cursor: default;">{{title}}</span>
         </div>
         <div class="d-flex">
           <button
