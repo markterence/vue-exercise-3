@@ -1,9 +1,8 @@
 <template>
   <div id="app" class="container-fluid w-75 py-5">
-    <ClassStyleBinding ref="termFeed"/>
-   
+    
     <ElementComponentAccess @onSendClicked="broadcastMessage" @onPurgeClicked="clearMessages"/>
-
+    <ClassStyleBinding ref="termFeed"/>
     <FilterComponent/>
 
     <ResourcesComponent />
@@ -23,16 +22,16 @@ export default {
     ElementComponentAccess,
     ResourcesComponent
   },
-  mounted() { 
-    const feedRef = this.$refs.termFeed;
-    this.feed = feedRef.getTerm();
-  },
   methods: {
     clearMessages() {
-       this.feed.clearTermContent()
+      const feedRef = this.$refs.termFeed;
+      const feed = feedRef.getTerm();
+      feed.clearTermContent()
     },
     broadcastMessage({data}){ 
-      this.feed.setTermContent(data)
+      const feedRef = this.$refs.termFeed;
+      const feed = feedRef.getTerm();
+      feed.setTermContent(data)
     }
   }
 };

@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <h2>Class and Style Binding</h2>
+  <div class="mb-5">
+    <h2>Class and Style Binding,<code> (see Term.vue)</code></h2>
     <div class="container-fluid mt-3">
-      <!-- class and style binding: https://vuejs.org/v2/guide/class-and-style.html-->
-      <Term title="Class Binding" ref="term" collapsed/>
+      <Term title="Term" ref="term" collapsed/>
     </div>
   </div>
 </template>
@@ -13,10 +12,7 @@ import Term from "./Term";
 export default {
   components: {
     Term
-  },
-  mounted() {
-
-  },
+  }, 
   computed: {
   
   },
