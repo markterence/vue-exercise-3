@@ -3,7 +3,7 @@
     <h2>Class and Style Binding</h2>
     <div class="container-fluid mt-3">
       <!-- class and style binding: https://vuejs.org/v2/guide/class-and-style.html-->
-      <Term title="Class Binding" collapsed/>
+      <Term title="Class Binding" ref="term" collapsed/>
     </div>
   </div>
 </template>
@@ -17,7 +17,15 @@ export default {
   mounted() {
 
   },
-  methods: {}
+  computed: {
+  
+  },
+  methods: {
+    getTerm(){
+      const term = this.$refs.term;
+      return term;
+    }
+  }
 };
 </script>
 

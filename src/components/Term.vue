@@ -25,10 +25,12 @@
         </div>
       </div>
     </div>
-    <div class="term-content px-2 text-success h-100" style="overflow-y: auto">
+    <div class="term-content px-2  h-100" style="overflow-y: auto">
       <div class="h-100">
-        <div v-for="(msgs, i) in termMessages" :key="i">
-          <span class="p-0">{{ msgs }}</span>
+        <div v-for="(content, i) in messages" :key="i">
+          <span :class="['p-0',  (content.warn) ? 'text-warning':'text-success' ]">
+           {{  content.warn ? "&lt;Announcement&gt; ": '' }}{{content.message}}
+          </span>
         </div>
       </div>
     </div>
@@ -52,7 +54,7 @@ export default {
       type: Array,
       required: false,
       default: function() {
-        return [""];
+        return [];
       }
     },
     collapsed: {
@@ -67,7 +69,8 @@ export default {
     return {
       termHeight: MIN_TERM_HEIGHT,
       isActive: false,
-      showTerm: false
+      showTerm: false,
+      messages: this.termMessages
     };
   },
   computed: {
@@ -75,7 +78,7 @@ export default {
       return {
         height: `${this.termHeight}px`
       };
-    },
+    }, 
     termClass() {
       return {
         active: this.isActive, 
@@ -88,8 +91,11 @@ export default {
     }
   },
   methods: {
+    clearTermContent() {
+      this.messages = []
+    },
     setTermContent(content) {
-      this.$props.termMessages.push(content);
+      this.messages.push(content);
     },
     hideTerm() {
       this.termHeight = this.termHeight <= MAX_VISIBLE_HEIGHT ? MAX_TERM_HEIGHT : MAX_VISIBLE_HEIGHT;

@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container-fluid w-75">
-    <ClassStyleBinding/>
+    <ClassStyleBinding ref="termFeed"/>
    
-    <ElementComponentAccess/>
+    <ElementComponentAccess @onSendClicked="broadcastMessage" @onPurgeClicked="clearMessages"/>
 
-     <FilterComponent/>
+    <FilterComponent/>
   </div>
 </template>
 
@@ -18,6 +18,18 @@ export default {
     ClassStyleBinding,
     FilterComponent,
     ElementComponentAccess
+  },
+  mounted() { 
+    const feedRef = this.$refs.termFeed;
+    this.feed = feedRef.getTerm();
+  },
+  methods: {
+    clearMessages() {
+       this.feed.clearTermContent()
+    },
+    broadcastMessage({data}){ 
+      this.feed.setTermContent(data)
+    }
   }
 };
 </script>
@@ -49,5 +61,9 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+
+.v-green {
+  color: #42b983;
 }
 </style>

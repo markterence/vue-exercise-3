@@ -1,18 +1,20 @@
 <template>
   <div>
-    <h2>Element & Component Access</h2>
+    <h2>Element &amp; Component Access</h2>
     <div class="container-fluid mt-3">
       <div class="d-block">
         <div>
-          <span class="h5 text-secondary">Text:</span>
-          <p>Message is: {{ text1 }}</p>
-          <input type="text" class="text-dark form-control" v-model="text1">
+          <span class="h5 text-secondary">Message:</span>
+          <input type="text" class="text-dark form-control" v-model="form.message" ref="textBox1">
         </div>
-        <!-- <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="chkBox" :model="form.chk1">
-          <label class="form-check-label" for="chkBox" style="user-select:none">Box</label>
-        </div>-->
-        <button class="btn btn-block btn-primary">Submit</button>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="chkBox" v-model="form.broadcast">
+          <label class="form-check-label" for="chkBox" style="user-select:none">Announcement: {{form.broadcast}}</label>
+        </div>
+        <div>
+          <button class="btn btn-block btn-dark" @click="broadcastMessage"><span class="v-green">Send</span></button>
+          <button class="btn btn-block btn-dark" @click="clearMessage"><span class="text-danger">Purge</span></button>
+        </div>
       </div>
     </div>
   </div>
@@ -20,14 +22,31 @@
 
 <script>
 export default {
+
   data() {
     return {
-      text1: "components",
       form: {
-        text1: "component",
-        chk1: false
+        message: "Element & Component Access",
+        broadcast: true
       }
     };
+  },
+
+  methods: {
+    clearMessage($event) {
+      this.$emit('onPurgeClicked', $event)
+    },
+    broadcastMessage(){
+      if(this.form.message.trim() !== '') {
+        const msg = {
+          data: {
+            message: this.form.message,
+            warn: this.form.broadcast
+          }
+        }
+        this.$emit('onSendClicked', msg)
+      }
+    }
   }
 };
 </script>
