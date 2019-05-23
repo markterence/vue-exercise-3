@@ -1,6 +1,6 @@
 <template>
-  <div class="filterComponent">
-    <h2>Filtering, Conditional Rendering</h2>
+  <div class="filterComponent mb-5">
+    <h2>Filtering, Conditional Rendering and Scoped Slots</h2>
     <div class="container-fluid mt-3">
       <div class="form">
         <div class="form-container">
