@@ -20,7 +20,8 @@ export default {
   components: {
     ClassStyleBinding,
     FilterComponent,
-    ElementComponentAccess
+    ElementComponentAccess,
+    ResourcesComponent
   },
   mounted() { 
     const feedRef = this.$refs.termFeed;
