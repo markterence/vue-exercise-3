@@ -1,6 +1,5 @@
 {
-  "name": "vue-exercise",
-  "type": "static",
+  "name": "vue-exercise", 
   "builds": [{ "src": "package.json", "use": "@now/static-build" }],
 	"alias": "vue-exercise",
   "routes": [
