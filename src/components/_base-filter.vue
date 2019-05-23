@@ -9,11 +9,15 @@ export default {
   props: {
     list: {
       type: Array,
-      default: []
+      default: function(){
+        return []
+      }
     },
     filter: {
-      type: Boolean,
-      default: true
+      type: Function,
+      default: function(){
+        return true
+      }
     }
   }
 
