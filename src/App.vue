@@ -31,6 +31,10 @@
         </ul>
       </li>
     </ul>
+
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <span class="mr-2"> Github Repo: </span>  <a target="_blank" href="https://github.com/markterence/vue-exercise-3" style="color: #e83e8c;"><code>https://github.com/markterence/vue-exercise-3</code></a>
+    </div>
   </div>
 </template>
 
