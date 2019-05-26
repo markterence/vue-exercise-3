@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['mt-1', 'd-block', 'd-flex', 'term' ,'flex-column', 'rounded', 'bg-dark',
+    :class="['shadow','mt-1', 'd-block', 'd-flex', 'term' ,'flex-column', 'rounded', 'bg-dark',
         termClass]"
     v-bind:style="[termStyle]"
   >
@@ -29,12 +29,12 @@
         </div>
       </div>
     </div>
-    <div class="term-content px-2  h-100" style="overflow-y: auto">
+    <div class="term-content px-2 h-100" style="overflow-y: auto">
       <div class="h-100">
         <slot />
         <div v-for="(content, i) in messages" :key="i">
-          <span :class="['p-0',  (content.warn) ? 'text-warning':'text-success' ]">
-           {{displayMessage(content)}}
+          <span :class="['p-0',  `text-${content.logType || 'light'}` ]">
+           {{ displayMessage(content) }}
           </span>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default {
       return {
         height: `${this.termHeight}px`
       };
-    }, 
+    },
     termClass() {
       return {
         active: this.isActive, 
@@ -97,16 +97,28 @@ export default {
   },
   methods: {
     displayMessage(content){
-      if(content.warn) {
-        return `<Announcement> ${content.message}`;
+      if(content.tag) {
+        return `<${content.tag}> ${content.message}`;
       }
       return `${content.message}`
     },
     clearTermContent() {
       this.messages = []
     },
+    
+    /**
+     * @param {Array|Object} content
+     * content.message
+     * content.logType
+     * content.tag 
+     */
     setTermContent(content) {
-      this.messages.push(content);
+      if(Array.isArray(content)) {
+        this.messages.push(...content)
+      }
+      else {
+        this.messages.push(content);
+      }
     },
     hideTerm() {
       this.termHeight = this.termHeight <= MAX_VISIBLE_HEIGHT ? MAX_TERM_HEIGHT : MAX_VISIBLE_HEIGHT;
@@ -128,6 +140,7 @@ export default {
   transition: height 0.4s;
 }
 .term.active {
-  box-shadow: rgba(75, 0, 196, 0.6) 0px 0px 8px 4px;
+  box-shadow: rgba(75, 0, 196, 0.6) 0px 0px 8px 4px !important;
 }
+
 </style>

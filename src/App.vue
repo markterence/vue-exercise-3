@@ -28,9 +28,10 @@ export default {
       const feed = feedRef.getTerm();
       feed.clearTermContent()
     },
-    broadcastMessage({data}){ 
+    broadcastMessage(data){ 
       const feedRef = this.$refs.termFeed;
       const feed = feedRef.getTerm();
+      
       feed.setTermContent(data)
     }
   }

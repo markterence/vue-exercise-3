@@ -28,7 +28,7 @@
         >
           <template v-slot:default="{ list }">
             <Term v-for="(topic) in list" :key="topic.id" :title="topic.title">
-              <component v-if="topic.component" :is="topic.component" />
+              <component v-if="topic.component" :is="topic.component" v-bind="topic.props" />
             </Term>
           </template>
         </BaseFilter> 
@@ -53,6 +53,10 @@ export default {
           title: 'Class and Style Binding',
           id: 1, 
           value: 1,
+          component: Term,
+          props: {
+            title: `Dynamic components, use with care.`
+          }
         },
         {
           title: 'Element & Component Access',

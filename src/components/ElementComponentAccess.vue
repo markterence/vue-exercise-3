@@ -7,9 +7,29 @@
           <span class="h5 text-secondary">Message:</span>
           <input type="text" class="text-dark form-control" v-model="form.message" ref="textBox1">
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="chkBox" v-model="form.broadcast">
-          <label class="form-check-label" for="chkBox" style="user-select:none">Announcement: {{form.broadcast}}</label>
+        <div class="d-flex">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="chkBox" v-model="form.broadcast">
+            <label class="form-check-label" for="chkBox" style="user-select:none">Announcement: {{form.broadcast}}</label>
+          </div>
+          <div class="mx-3">
+            <div class="form-check-inline">
+              <input class="form-check-input" type="radio" id="rbtnWarn" name="logType" value="warning" v-model="form.logType">
+              <label class="form-check-label text-warning" for="rbtnWarn" style="user-select:none" >Warning</label>
+            </div>
+            <div class="form-check-inline">
+              <input class="form-check-input" type="radio" id="rbtnPrimary" name="logType" value="primary" v-model="form.logType">
+              <label class="form-check-label text-primary" for="rbtnPrimary" style="user-select:none" >Primary</label>
+            </div>
+            <div class="form-check-inline"> 
+              <input class="form-check-input" type="radio" id="rbtnSuccess" name="logType" value="success" v-model="form.logType">
+              <label class="form-check-label text-success" for="rbtnSuccess" style="user-select:none" >Success</label>
+            </div>
+            <div class="form-check-inline" >
+              <input class="form-check-input" type="radio" id="rbtnDanger" name="logType" value="danger" v-model="form.logType">
+              <label class="form-check-label text-danger" for="rbtnDanger" style="user-select:none" >Danger</label>
+            </div>
+          </div>
         </div>
         <div>
           <button class="btn btn-block btn-dark" @click="broadcastMessage" ref="btnSend"><span class="v-green">Send</span></button>
@@ -42,12 +62,18 @@ export default {
         this.$refs.btnSend.disabled = true;
 
         setTimeout(()=>{
-          const msg = {
-            data: {
+          const msg = [
+            {
+              message: `Component is accessed using $refs.`,
+              logType: 'danger',
+              tag: 'System'
+            },
+            {
               message: this.form.message,
-              warn: this.form.broadcast
+              logType: this.form.logType,
+              tag: this.form.broadcast ? 'Announcement' : null
             }
-          }
+          ]
           this.$emit('onSendClicked', msg)
           this.$refs.textBox1.disabled = false;
           this.$refs.btnSend.disabled = false;
