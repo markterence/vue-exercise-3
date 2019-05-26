@@ -27,7 +27,9 @@
           :filter="(item) => (difficulty == item.value || (difficulty == 0 || !ratingFilter))"
         >
           <template v-slot:default="{ list }">
-            <Term v-for="(topic) in list" :key="topic.id" :title="topic.title"/>
+            <Term v-for="(topic) in list" :key="topic.id" :title="topic.title">
+              <component v-if="topic.component" :is="topic.component" />
+            </Term>
           </template>
         </BaseFilter> 
       </div>
@@ -37,10 +39,12 @@
 
 <script>
 import Term from "./Term";
+import ClassBindingContent from './ClassBindingContent';
+
 import { generateSearchRegex } from '../utils/search'
 export default {
   components: {
-    Term
+    Term,
   },
   data() {
     return {
@@ -48,7 +52,7 @@ export default {
         {
           title: 'Class and Style Binding',
           id: 1, 
-          value: 1
+          value: 1,
         },
         {
           title: 'Element & Component Access',
@@ -69,7 +73,13 @@ export default {
           title: 'Render Functions & JSX',
           id: 5,
           value: 3
-        }
+        },
+        {
+          title: 'Dynamic Component',
+          id: 6, 
+          value: 1,
+          component: ClassBindingContent
+        },
       ],
       search: "",
       difficulty: 0,

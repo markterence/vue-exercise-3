@@ -9,15 +9,19 @@
       style="max-height:42px; height:42px"
         @click.self="glowTerm"
       >
-        <div class="d-flex"><span style="color: orange; user-select:none; cursor: default;">{{title}}</span>
+        <div class="d-flex">
+          <span style="color: orange; user-select:none; cursor: default;">{{title}}</span>
         </div>
         <div class="d-flex">
           <button
+            title="collapse"
             class="btn p-2 bg-warning rounded-circle ml-1"
             style="width:4px; height:4px;"
             @click="hideTerm"
-          ></button>
+          >
+          </button>
           <button
+            title="toggle"
             class="btn p-2 bg-success rounded-circle ml-1"
             style="width:4px; height:4px;"
             @click="toggleTerm"
@@ -27,9 +31,10 @@
     </div>
     <div class="term-content px-2  h-100" style="overflow-y: auto">
       <div class="h-100">
+        <slot />
         <div v-for="(content, i) in messages" :key="i">
           <span :class="['p-0',  (content.warn) ? 'text-warning':'text-success' ]">
-           {{  content.warn ? "&lt;Announcement&gt; ": '' }}{{content.message}}
+           {{displayMessage(content)}}
           </span>
         </div>
       </div>
@@ -91,6 +96,12 @@ export default {
     }
   },
   methods: {
+    displayMessage(content){
+      if(content.warn) {
+        return `<Announcement> ${content.message}`;
+      }
+      return `${content.message}`
+    },
     clearTermContent() {
       this.messages = []
     },
