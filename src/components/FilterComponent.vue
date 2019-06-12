@@ -27,7 +27,11 @@
           :filter="(item) => (difficulty == item.value || (difficulty == 0 || !ratingFilter))"
         >
           <template v-slot:default="{ list }">
-            <Term v-for="(topic) in list" :key="topic.id" :title="topic.title">
+            <Term v-for="(topic) in list" :key="topic.id" 
+              :title="topic.title" 
+              :active="topic.id === selectedItem" 
+              @on-header-click="setActiveTerm(topic.id)"
+            >
               <component v-if="topic.component" :is="topic.component" v-bind="topic.props" />
             </Term>
           </template>
@@ -48,6 +52,7 @@ export default {
   },
   data() {
     return {
+      selectedItem: -1,
       topics: [
         {
           title: 'Class and Style Binding',
@@ -108,13 +113,15 @@ export default {
       ]
     };
   },
-
   methods: {
     randomizeLevel(){
       return Math.floor(Math.random() * Math.floor(this.ratingOps.length));
     },
-    selectRandomLevel(rndType) { 
+    selectRandomLevel() { 
       this.difficulty = this.randomizeLevel() 
+    },
+    setActiveTerm(termId) {
+      this.selectedItem = termId
     },
     filterTopics(topics){
       const reg = generateSearchRegex(this.search)

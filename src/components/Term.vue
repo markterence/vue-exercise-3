@@ -5,27 +5,17 @@
     v-bind:style="[termStyle]"
   >
     <div class="shadow term-header-container" style="">
-      <div class="px-2 d-flex justify-content-between align-items-center" 
-      style="max-height:42px; height:42px"
-        @click.self="glowTerm"
+      <div 
+        class="px-2 d-flex justify-content-between align-items-center" 
+        style="max-height:42px; height:42px"
+        @click.self="onHeaderClicked"
       >
         <div class="d-flex">
           <span style="color: orange; user-select:none; cursor: default;">{{title}}</span>
         </div>
         <div class="d-flex">
-          <button
-            title="collapse"
-            class="btn p-2 bg-warning rounded-circle ml-1"
-            style="width:4px; height:4px;"
-            @click="hideTerm"
-          >
-          </button>
-          <button
-            title="toggle"
-            class="btn p-2 bg-success rounded-circle ml-1"
-            style="width:4px; height:4px;"
-            @click="toggleTerm"
-          ></button>
+          <TermCircleButton :class="['bg-warning']" title="collapse" @click="hideTerm"/>
+          <TermCircleButton :class="['bg-success']" title="toggle" @click="toggleTerm"/>
         </div>
       </div>
     </div>
@@ -33,20 +23,25 @@
       <div class="h-100">
         <slot />
         <div v-for="(content, i) in messages" :key="i">
-          <span :class="['p-0',  `text-${content.logType || 'light'}` ]">
-           {{ displayMessage(content) }}
-          </span>
+          <TermMessageItem :logType="content.logType"> {{ displayMessage(content) }} </TermMessageItem>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import TermCircleButton from './TermCircleButton';
+import TermMessageItem from './TermMessageItem';
+
 const MAX_TERM_HEIGHT = 300;
 const MIN_TERM_HEIGHT = 160;
 const MAX_VISIBLE_HEIGHT = 42;
 
 export default {
+  components: {
+    TermCircleButton,
+    TermMessageItem
+  },
   props: {
     title: {
       type: String,
@@ -68,12 +63,18 @@ export default {
       default: function() {
         return false
       }
+    },
+    active: {
+      type: Boolean,
+      required: false,
+      default: function() {
+        return false
+      }
     }
   },
   data() {
     return {
       termHeight: MIN_TERM_HEIGHT,
-      isActive: false,
       showTerm: false,
       messages: this.termMessages
     };
@@ -86,7 +87,7 @@ export default {
     },
     termClass() {
       return {
-        active: this.isActive, 
+        active: this.$props.active, 
       };
     }
   },
@@ -123,8 +124,9 @@ export default {
     hideTerm() {
       this.termHeight = this.termHeight <= MAX_VISIBLE_HEIGHT ? MAX_TERM_HEIGHT : MAX_VISIBLE_HEIGHT;
     },
-    glowTerm() {
-      this.isActive = !this.isActive;
+    onHeaderClicked(e) {
+      // https://vuejs.org/v2/guide/components-custom-events.html
+      this.$emit('on-header-click',e)
     },
     toggleTerm() {
       this.termHeight =

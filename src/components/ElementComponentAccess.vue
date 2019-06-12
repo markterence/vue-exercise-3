@@ -29,6 +29,10 @@
               <input class="form-check-input" type="radio" id="rbtnDanger" name="logType" value="danger" v-model="form.logType">
               <label class="form-check-label text-danger" for="rbtnDanger" style="user-select:none" >Danger</label>
             </div>
+            <div class="form-check-inline" >
+              <input class="form-check-input" type="radio" id="rbtnInfo" name="logType" value="info" v-model="form.logType">
+              <label class="form-check-label text-info" for="rbtnInfo" style="user-select:none" >Info</label>
+            </div>
           </div>
         </div>
         <div>
